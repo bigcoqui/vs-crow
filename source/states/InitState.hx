@@ -46,19 +46,20 @@ class InitState extends FlxUIState {
       Note.skinManifest.set(skin,Paths.noteskinManifest(skin));
     }
   }
-  #if !android
   public static function getCharacters(){
     EngineData.characters=[];
-    for(file in FileSystem.readDirectory('assets/characters/data') ){
+    var list = Assets.list();
+    var charList = list.filter(text -> text.contains('assets/characters/data'));
+    for(file in charList){
       if(file.endsWith(".json")){
         var name = file.replace(".json","");
+        //name = name.split(':')[1]; // idk about dpes it needed or no, so is commented for now
         if(!name.endsWith("-player")){
           EngineData.characters.push(name);
         }
       }
     }
   }
-#end
   override function create()
   {
     OptionUtils.bindSave();
