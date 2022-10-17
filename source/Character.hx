@@ -105,8 +105,9 @@ class Character extends FlxSprite
 		var pathBase = 'assets/characters/data/';
 		var daCharPath = pathBase + charName + ".json";
 		var playerPath = pathBase + charName + "-player.json";
-		if(isPlayer)daCharPath=playerPath;
-		charPath=daCharPath;
+		if(player)daCharPath=playerPath;
+
+		
 		
 		var shit:Null<Dynamic>=null;
 		if(Assets.exists(daCharPath)){
