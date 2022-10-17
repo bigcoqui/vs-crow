@@ -154,7 +154,7 @@ class FreeplayState extends MusicBeatState
 			addSongData(new EngineData.SongData("Bein' Bad","becky",1,"bein-bad","crow"));
 		}
 
-		var otherSongs = Paths.getDirs("songs","assets");
+		/*var otherSongs = Paths.getDirs("songs","assets");
 
 		for(song in otherSongs){
 			//addSong(songName:String, weekNum:Int, songCharacter:String, ?chartName:String)
@@ -195,7 +195,7 @@ class FreeplayState extends MusicBeatState
 				}
 
 			}
-		}
+		}*/
 
 
 		// LOAD MUSIC
