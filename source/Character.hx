@@ -12,7 +12,7 @@ import flixel.math.FlxPoint;
 import sys.FileSystem;
 import haxe.Json;
 import parsers.*;
-
+import openfl.utils.Assets;
 using StringTools;
 
 typedef AnimShit = {
