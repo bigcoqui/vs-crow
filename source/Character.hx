@@ -105,13 +105,14 @@ class Character extends FlxSprite
 		var pathBase = 'assets/characters/data/';
 		var daCharPath = pathBase + charName + ".json";
 		var playerPath = pathBase + charName + "-player.json";
-		if(player && FileSystem.exists(playerPath))daCharPath=playerPath;
-
+		if(isPlayer)daCharPath=playerPath;
+		charPath=daCharPath;
+		
 		var shit:Null<Dynamic>=null;
-		if(FileSystem.exists(daCharPath)){
-			shit = Json.parse(File.getContent(daCharPath));
+		if(Assets.exists(daCharPath)){
+			shit = Json.parse(Assets.getText(daCharPath));
 		}else if(FileSystem.exists(pathBase + "dad.json")){
-			shit = Json.parse(File.getContent(pathBase + "dad.json") );
+			shit = Json.parse(Assets.getText(pathBase + "dad.json") );
 		}
 
 		var format = Reflect.field(shit,"format");
@@ -155,7 +156,7 @@ class Character extends FlxSprite
 				var pathBase = 'assets/characters/data/';
 				var daCharPath = pathBase + curCharacter + ".json";
 				var playerPath = pathBase + curCharacter + "-player.json";
-				if(isPlayer && FileSystem.exists(playerPath))daCharPath=playerPath;
+				if(isPlayer)daCharPath=playerPath;
 				charPath=daCharPath;
 
 				charData=getJSON(curCharacter,isPlayer);
@@ -174,14 +175,14 @@ class Character extends FlxSprite
 			var spritesheet = charData.spritesheet;
 			var path = chars + spritesheet;
 
-			if(FileSystem.exists(path + ".png")){
+			if(Assets.exists(path + ".png")){
 				var image = FlxG.bitmap.get(path);
 				if(image==null){
-					image = FlxG.bitmap.add(BitmapData.fromFile(path + ".png"),false,path);
+					image = FlxG.bitmap.add(Assets.getBitmapData(path + ".png"),false,path);
 				}
-				if(FileSystem.exists(path + ".txt")){
+				if(Assets.exists(path + ".txt")){
 					frames = FlxAtlasFrames.fromSpriteSheetPacker(image, File.getContent(path + ".txt") );
-				}else if(FileSystem.exists(path + ".xml")){
+				}else if(Assets.exists(path + ".xml")){
 					frames = FlxAtlasFrames.fromSparrow(image, File.getContent(path + ".xml") );
 				}
 			}
@@ -190,8 +191,8 @@ class Character extends FlxSprite
 			animation.destroyAnimations();
 			var offsetPath = "assets/characters/images/"+curCharacter+"Offsets.txt";
 			var defaultOffsets:Map<String,Array<Float>>=[];
-			if(FileSystem.exists(offsetPath)){
-				var offsets = CoolUtil.coolTextFile2(File.getContent(offsetPath));
+			if(Assets.exists(offsetPath)){
+				var offsets = CoolUtil.coolTextFile2(Assets.getText(offsetPath));
 				for(s in offsets){
 					var stuff:Array<String> = s.split(" ");
 					defaultOffsets.set(stuff[0],[Std.parseFloat(stuff[1]),Std.parseFloat(stuff[2])]);
