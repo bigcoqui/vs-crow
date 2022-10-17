@@ -7,7 +7,9 @@ import flixel.FlxG;
 import flixel.util.FlxColor;
 import flixel.text.FlxText;
 import lime.app.Application;
+#if windows 
 import Discord.DiscordClient;
+#end
 import flixel.FlxSprite;
 import Options;
 import flixel.addons.transition.FlxTransitionSprite.GraphicTransTileDiamond;
@@ -35,7 +37,7 @@ class InitState extends FlxUIState {
   public static function getNoteskins(){
     var currentOptions = OptionUtils.options;
     Note.skinManifest.clear();
-    OptionUtils.noteSkins = Paths.getDirs("skins");
+    OptionUtils.noteSkins = ['default', 'etternaquants', 'fallback', 'quants'];
 
     if(!OptionUtils.noteSkins.contains(currentOptions.noteSkin))
       currentOptions.noteSkin='default';
@@ -44,7 +46,7 @@ class InitState extends FlxUIState {
       Note.skinManifest.set(skin,Paths.noteskinManifest(skin));
     }
   }
-
+  #if !android
   public static function getCharacters(){
     EngineData.characters=[];
     for(file in FileSystem.readDirectory('assets/characters/data') ){
@@ -56,7 +58,7 @@ class InitState extends FlxUIState {
       }
     }
   }
-
+#end
   override function create()
   {
     OptionUtils.bindSave();
@@ -124,11 +126,7 @@ class InitState extends FlxUIState {
 
 
     var canCache=false;
-    #if sys
-      #if cpp // IDK IF YOU CAN DO "#IF SYS AND CPP" OR THIS'LL WORK I THINK
-        canCache=true;
-      #end
-    #end
+    
     if(canCache){
       if(!currentOptions.cacheCharacters && !currentOptions.cacheSongs && !currentOptions.cacheSounds  && !currentOptions.cachePreload)
         canCache=false;
@@ -141,7 +139,9 @@ class InitState extends FlxUIState {
     //characters
     var nextState:FlxUIState = new TitleState();
     if(currentOptions.shouldCache && canCache){
+	    #if !android
       nextState = new CachingState(nextState);
+	    #end
     }else{
       initTransition();
       transIn = FlxTransitionableState.defaultTransIn;
