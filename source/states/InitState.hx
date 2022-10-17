@@ -20,6 +20,8 @@ import flixel.math.FlxRect;
 import haxe.Json;
 import sys.FileSystem;
 import ui.*;
+import lime.utils.Assets;
+
 using StringTools;
 
 class InitState extends FlxUIState {
