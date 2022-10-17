@@ -16,7 +16,7 @@ import openfl.Lib;
 import openfl.display.FPS;
 import openfl.display.Sprite;
 import openfl.events.Event;
-
+import lime.system.System;
 using StringTools;
 
 class Main extends Sprite
@@ -26,6 +26,7 @@ class Main extends Sprite
 	var initialState:Class<FlxState> = states.InitState; // The FlxState the game starts with.
 	var zoom:Float = -1; // If -1, zoom is automatically calculated to fit the window dimensions.
 	public static var framerate:Int = 60; // How many frames per second the game should run at.
+	public static var path:String = System.applicationStorageDirectory;
 	#if HAXEFLIXEL_LOGO
 	var skipSplash:Bool = false;
 	#else
@@ -80,7 +81,7 @@ class Main extends Sprite
 
 		addChild(new FlxGame(gameWidth, gameHeight, initialState, zoom, framerate, framerate, skipSplash, startFullscreen));
 
-		#if !mobile
+		#if !android
 		addChild(new ui.FPSMem(10, 3, 0xFFFFFF));
 		#end
 	}
