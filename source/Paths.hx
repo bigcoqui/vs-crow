@@ -176,7 +176,7 @@ class Paths
 			if(!doShit){
 				var pathPng = noteSkinPath('${key}.png',library,skin,modifier,noteType,useOpenFLAssetSystem);
 				var image:Null<BitmapData>=null;
-				if(Assets.xists(pathPng)){
+				if(Assets.exists(pathPng)){
 					doShit=true;
 					image = Assets.getBitmapData(pathPng);
 					FlxG.bitmap.add(image,false,bitmapName);
