@@ -7,7 +7,9 @@ import flixel.FlxG;
 import flixel.util.FlxColor;
 import flixel.text.FlxText;
 import lime.app.Application;
+#if !android
 import Discord.DiscordClient;
+#end
 import flixel.FlxSprite;
 import Options;
 import flixel.addons.transition.FlxTransitionSprite.GraphicTransTileDiamond;
@@ -18,6 +20,7 @@ import flixel.math.FlxRect;
 import haxe.Json;
 import sys.FileSystem;
 import ui.*;
+import openfl.utils.Assets;
 using StringTools;
 
 class InitState extends FlxUIState {
@@ -35,7 +38,7 @@ class InitState extends FlxUIState {
   public static function getNoteskins(){
     var currentOptions = OptionUtils.options;
     Note.skinManifest.clear();
-    OptionUtils.noteSkins = Paths.getDirs("skins");
+    OptionUtils.noteSkins = ['default', 'etternaquants', 'fallback', 'quants'];
 
     if(!OptionUtils.noteSkins.contains(currentOptions.noteSkin))
       currentOptions.noteSkin='default';
