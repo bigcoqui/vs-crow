@@ -7,9 +7,7 @@ import flixel.FlxG;
 import flixel.util.FlxColor;
 import flixel.text.FlxText;
 import lime.app.Application;
-#if !android
 import Discord.DiscordClient;
-#end
 import flixel.FlxSprite;
 import Options;
 import flixel.addons.transition.FlxTransitionSprite.GraphicTransTileDiamond;
@@ -20,7 +18,6 @@ import flixel.math.FlxRect;
 import haxe.Json;
 import sys.FileSystem;
 import ui.*;
-import openfl.utils.Assets;
 using StringTools;
 
 class InitState extends FlxUIState {
@@ -38,7 +35,7 @@ class InitState extends FlxUIState {
   public static function getNoteskins(){
     var currentOptions = OptionUtils.options;
     Note.skinManifest.clear();
-    OptionUtils.noteSkins = ['default', 'etternaquants', 'fallback', 'quants'];
+    OptionUtils.noteSkins = Paths.getDirs("skins");
 
     if(!OptionUtils.noteSkins.contains(currentOptions.noteSkin))
       currentOptions.noteSkin='default';
@@ -50,12 +47,9 @@ class InitState extends FlxUIState {
 
   public static function getCharacters(){
     EngineData.characters=[];
-    var list = Assets.list();
-    var charList = list.filter(text -> text.contains('assets/characters/data'));
-    for(file in charList){
+    for(file in FileSystem.readDirectory('assets/characters/data') ){
       if(file.endsWith(".json")){
         var name = file.replace(".json","");
-        //name = name.split(':')[1]; // idk about dpes it needed or no, so is commented for now
         if(!name.endsWith("-player")){
           EngineData.characters.push(name);
         }
@@ -129,9 +123,12 @@ class InitState extends FlxUIState {
 		#end
 
 
-    
     var canCache=false;
-    canCache=true;
+    #if sys
+      #if cpp // IDK IF YOU CAN DO "#IF SYS AND CPP" OR THIS'LL WORK I THINK
+        canCache=true;
+      #end
+    #end
     if(canCache){
       if(!currentOptions.cacheCharacters && !currentOptions.cacheSongs && !currentOptions.cacheSounds  && !currentOptions.cachePreload)
         canCache=false;
