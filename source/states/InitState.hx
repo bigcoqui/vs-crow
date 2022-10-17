@@ -20,7 +20,7 @@ import flixel.math.FlxRect;
 import haxe.Json;
 import sys.FileSystem;
 import ui.*;
-import lime.utils.Assets;
+import openfl.utils.Assets;
 
 using StringTools;
 
