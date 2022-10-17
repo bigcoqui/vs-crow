@@ -57,8 +57,9 @@ class Paths
 		return 'assets/$file';
 	}
 
-	public static function getDirs(library:String,?base='assets/images'){
+	/*public static function getDirs(library:String,?base='assets/images'){
 		var folders:Array<String>=[];
+		
 		// TODO: openflassets shit maybe?
 		for(folder in FileSystem.readDirectory('${base}/${library}') ){
 			if(!folder.contains(".") && FileSystem.isDirectory('${base}/${library}/${folder}')){
@@ -66,7 +67,7 @@ class Paths
 			}
 		}
 		return folders;
-	}
+	}*/
 
 	// SLIGHTLY BASED ON https://github.com/Yoshubs/Forever-Engine/blob/master/source/ForeverTools.hx
 	// THANKS YOU GUYS ARE THE FUNKIN BEST
@@ -138,7 +139,7 @@ class Paths
 			if(noteType!='' && noteType!='default'){
 				while(idx<pathsNotetype.length){
 					path = pathsNotetype[idx];
-					if(FileSystem.exists(path))
+					if(Assets.exists(path))
 						break;
 
 					idx++;
@@ -147,7 +148,7 @@ class Paths
 			}else{
 				while(idx<pathsNoNotetype.length){
 					path = pathsNoNotetype[idx];
-					if(FileSystem.exists(path))
+					if(Assets.exists(path))
 						break;
 
 					idx++;
@@ -174,9 +175,9 @@ class Paths
 			if(!doShit){
 				var pathPng = noteSkinPath('${key}.png',library,skin,modifier,noteType,useOpenFLAssetSystem);
 				var image:Null<BitmapData>=null;
-				if(FileSystem.exists(pathPng)){
+				if(Assets.xists(pathPng)){
 					doShit=true;
-					image = BitmapData.fromFile(pathPng);
+					image = Assets.getBitmapData(pathPng);
 					FlxG.bitmap.add(image,false,bitmapName);
 				}
 				if(image!=null)
@@ -226,9 +227,9 @@ class Paths
 				if(!FlxG.bitmap.checkCache(bitmapName)){
 					doShit=false;
 					var pathPng = noteSkinPath('${key}.png',library,skin,modifier,noteType,useOpenFLAssetSystem);
-					if(FileSystem.exists(pathPng)){
+					if(Assets.exists(pathPng)){
 						doShit=true;
-						FlxG.bitmap.add(BitmapData.fromFile(pathPng),false,bitmapName);
+						FlxG.bitmap.add(Assets.getBitmapData(pathPng),false,bitmapName);
 					}
 				}
 				if(doShit)
