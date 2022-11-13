@@ -80,9 +80,9 @@ class Paths
 		if(OpenFlAssets.exists(path)){
 			return Json.parse(OpenFlAssets.getText(path));
 		}else if(FileSystem.exists(path)){
-			return Json.parse(File.getContent(path));
+			return Json.parse(Assets.getText(path));
 		}
-		return Json.parse(File.getContent('assets/images/${library}/fallback/metadata.json'));
+		return Json.parse(Assets.getText('assets/images/${library}/fallback/metadata.json'));
 	}
 
 	public static function noteSkinPath(key:String, ?library:String='skins', ?skin:String='default', modifier:String='base', noteType:String='default', ?useOpenFLAssetSystem:Bool=true):String
@@ -200,7 +200,7 @@ class Paths
 			}
 		}else{
 			var path = noteSkinPath('${key}',library,skin,modifier,noteType,useOpenFLAssetSystem);
-			if(FileSystem.exists(path)){
+			if(Assets.exists(path)){
 				return Cache.getText(path);
 			}
 		}
