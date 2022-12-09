@@ -3,7 +3,7 @@ package;
 import Section.SwagSection;
 import haxe.Json;
 import haxe.format.JsonParser;
-import openfl.utils.Assets
+import openfl.utils.Assets;
 import sys.io.File;
 import flixel.util.typeLimit.OneOfTwo;
 
