@@ -178,9 +178,9 @@ class Character extends FlxSprite
 					image = FlxG.bitmap.add(Assets.getBitmapData(path + ".png"),false,path);
 				}
 				if(Assets.exists(path + ".txt")){
-					frames = FlxAtlasFrames.fromSpriteSheetPacker(image, File.getContent(path + ".txt") );
+					frames = FlxAtlasFrames.fromSpriteSheetPacker(image, Assets.getText(path + ".txt") );
 				}else if(Assets.exists(path + ".xml")){
-					frames = FlxAtlasFrames.fromSparrow(image, File.getContent(path + ".xml") );
+					frames = FlxAtlasFrames.fromSparrow(image, Assets.getText(path + ".xml") );
 				}
 			}
 
@@ -335,7 +335,7 @@ class Character extends FlxSprite
 		if(Cache.offsetData[curCharacter]!=null){
 			offsets = CoolUtil.coolTextFile2(Cache.offsetData[curCharacter]);
 		}else{
-			var data = File.getContent("assets/shared/images/characters/"+curCharacter+"Offsets.txt");
+			var data = Assets.getText("assets/shared/images/characters/"+curCharacter+"Offsets.txt");
 			offsets = CoolUtil.coolTextFile2(data);
 			Cache.offsetData[curCharacter] = data;
 		}
@@ -353,7 +353,7 @@ class Character extends FlxSprite
 			if(Cache.offsetData[curCharacter]!=null){
 				anims = CoolUtil.coolTextFile2(Cache.animData[curCharacter]);
 			}else{
-				var data = File.getContent("assets/shared/images/characters/"+curCharacter+"Anims.txt");
+				var data = Assets.getText("assets/shared/images/characters/"+curCharacter+"Anims.txt");
 				anims = CoolUtil.coolTextFile2(data);
 				Cache.animData[curCharacter] = data;
 			}
